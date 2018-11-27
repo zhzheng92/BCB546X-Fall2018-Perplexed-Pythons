@@ -1,9 +1,9 @@
 # BCB546X-Fall2018-Perplexed-Pythons
 
-###Owners: Zihao Zheng, Zainab Riaz, Timothy Nessel
+### Owners: Zihao Zheng, Zainab Riaz, Timothy Nessel
 
 
-###Iowa State University Class: BCB546X
+### Iowa State University Class: BCB546X
 
 
 This repository contains the final project for the group "Perplexed Pythons" during the 2018 Fall semester of class BCB546X. 
