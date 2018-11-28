@@ -14,5 +14,5 @@ An introduction to the paper, as well as details and a summary of the replicatio
 
 `code/` contains scripts and code used in the analysis
 
-`data/` contains the result files of the analysis
+`data/` contains the raw data and any result files of the analysis
 
