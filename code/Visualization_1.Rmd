@@ -1,0 +1,54 @@
+---
+title: "Perplexed_Pythons_Visualization_1"
+author: "Timothy Nessel"
+date: "12/1/2018"
+output: html_document
+---
+I will start by loading the required packages if required
+```{r}
+if (!require("tidyverse")) install.packages("tidyverse")
+if (!require("ggplot2")) install.packages("ggplot2")
+if (!require("reshape2")) install.packages("reshape2")
+if (!require("tidyr")) install.packages("tidyr")
+if (!require("plyr")) install.packages("plyr")
+library(tidyverse)
+library(ggplot2)
+library(reshape2)
+library(tidyr)
+library(plyr)
+library(scales)
+```
+I will then read in the files to plot
+```{r}
+NAM_traits_signifiant_hits <- read.table("../data/NAM_traits_signifiant_hits.csv", header = TRUE, sep = ",")
+NAM_effect_size <- read.table("../data/effect_size_maf.csv", header = TRUE, sep = ",")
+```
+
+
+To visualize the proportion of SNP_ID enrichment for each phenotypic trait, we will create a barplot in ggplot. 
+
+We have to manipulate the y axis counts in order to get a proportion (cite https://stackoverflow.com/questions/36604127/creating-a-bar-plot-with-proportions-on-ggplot)
+
+We also have to rotate the x axis for readability (cite https://stackoverflow.com/questions/1330989/rotating-and-spacing-axis-labels-in-ggplot2)
+
+```{r}
+q <- ggplot(NAM_traits_signifiant_hits, aes(trait)) +
+  geom_bar(aes(y=..count../sum(..count..))) +
+  scale_y_continuous(labels=percent_format())  #For proportion count y axis
+q + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + ggtitle("Proportion Variance Explained Replication") +
+  xlab("Trait") +
+  ylab("Proportion Variance Explained") # for the main and axis titles and For tilted x axis 
+```
+
+To visualize allele frequency vs effect size, we'll make a scatterplot with ggplot; with Minor Allele Frequency plotted along the x axis and effect size plotted along the y axis. We can use geom_smooth to creat a fitted line, and also use transparency to show overlap.
+```{r}
+ggplot(data = NAM_effect_size, mapping = aes(x=maf, y=effect_size_abs)) +
+  geom_point(alpha=0.4) + 
+  geom_smooth() + 
+  ggtitle("Minor allele frequency vs effect size: Replication") +
+    xlab("Minor Allele Frequency") +
+    ylab("Effect Size") #gives main title and axis labels
+  
+```
+
+
